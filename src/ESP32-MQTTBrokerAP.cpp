@@ -70,8 +70,9 @@ void reconnect()
         {
             Serial.println("connected");
             /* ... and resubscribe */
-            MQTTclient.subscribe("test");
-            MQTTclient.subscribe("mobile");
+            // MQTTclient.subscribe("test");
+            // MQTTclient.subscribe("mobile");
+            MQTTclient.subscribe("#");
         }
         else
         {
@@ -90,10 +91,12 @@ void callback(char *topic, byte *payload, unsigned int length)
 
     String payloadStr = String((char *)payload).substring(0, length);
 
-    if (String(topic) == "test") // matching topic?
-        Serial.println("\tpayload: " + payloadStr);
-    if (String(topic) == "mobile")
-        Serial.println("\tpayload: " + payloadStr);
+    Serial.println("\tpayload: " + payloadStr);
+
+    // if (String(topic) == "test") // matching topic?
+    //     Serial.println("\tpayload: " + payloadStr);
+    // if (String(topic) == "mobile")
+    //     Serial.println("\tpayload: " + payloadStr);
 
     enLed = true;
 }
@@ -117,8 +120,8 @@ void setup()
 
     delay(500);
 
-    const char *ssid = "ESP32";            // SSID
-    const char *password = "kolos025_2.4"; // password
+    const char *ssid = "MQTT_Bro";      // SSID
+    const char *password = "Server147"; // password
 
     WiFi.softAP(ssid, password);
     IPAddress myIP = WiFi.softAPIP();
@@ -142,13 +145,15 @@ void loop()
 
     ledBlinkHandler();
 
-    /*For testing publish count every second*/
-    if ((millis() - _tm) >= interval) // time between updates
-    {
-        _tm = millis();
+    // /*For testing publish count every second*/
+    // if ((millis() - _tm) >= interval) // time between updates
+    // {
+    //     _tm = millis();
 
-        /* example counter */
-        itoa(testCount++, testcount, 10);
-        broker.publish("test", testcount);
-    }
+    //     /* example counter */
+    // itoa(testCount++, testcount, 10);
+    // broker.publish("test", testcount);
+    // broker.publish("count", testcount);
+    // broker.publish("123", testcount);
+    // }
 }
