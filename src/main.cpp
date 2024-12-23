@@ -1,10 +1,3 @@
-/*
-Base code for an ESP32 MQTT broker avaiable via its own AP.
-No RPi-Mosquitto broker, cloud broker or wifi/router needed.
-    - Broker runs on core 0, local client and main code on core 1 (default).
-    - tested on phone with MQTT Analyzer and on PC with MQTT Explorer (simultaneously).
-    - tested with two ESP8266 (D1 Mini) clients connected to D1 Mini ESP32 version as host-broker.
-*/
 #include "Arduino.h"
 #include <sMQTTBroker.h>  // https://github.com/terrorsl/sMQTTBroker
 #include <PubSubClient.h> // https://github.com/knolleary/pubsubclient
@@ -120,8 +113,8 @@ void setup()
 
     delay(500);
 
-    const char *ssid = "MQTT_Bro";      // SSID
-    const char *password = "Server147"; // password
+    const char *ssid = "ESP32_MQTT";   // SSID
+    const char *password = "12345678"; // password
 
     WiFi.softAP(ssid, password);
     IPAddress myIP = WiFi.softAPIP();
